@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 05:03:53 by matcardo          #+#    #+#             */
-/*   Updated: 2022/07/17 00:35:45 by matcardo         ###   ########.fr       */
+/*   Updated: 2022/07/17 02:06:00 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 int	main()
 {
-	ft_putstr_fd("oii", 1);
+	ft_putstr_fd("oii vc ainda não fez o bonus", 1);
 	fct();
 	return (0);
 }

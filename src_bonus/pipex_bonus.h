@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/15 05:03:53 by matcardo          #+#    #+#             */
-/*   Updated: 2022/07/17 00:35:45 by matcardo         ###   ########.fr       */
+/*   Created: 2022/07/15 05:03:50 by matcardo          #+#    #+#             */
+/*   Updated: 2022/07/17 02:05:45 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#ifndef PIPEX
+# define PIPEX
 
-int	main()
-{
-	ft_putstr_fd("oii", 1);
-	fct();
-	return (0);
-}
+# include "../libraries/libft/libft.h"
+
+# include <stdlib.h>
+
+void fct();
+
+#endif

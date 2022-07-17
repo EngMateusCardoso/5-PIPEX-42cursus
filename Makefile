@@ -6,27 +6,30 @@
 #    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2022/07/15 05:25:38 by matcardo         ###   ########.fr        #
+#    Updated: 2022/07/17 02:04:42 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= pipex
+NAME			= pipex
 
-SRCS		= ./src/pipex.c
-OBJSDIR 	= .objs
-OBJS		= ${SRCS:.c=.objs/%.o}
-#OBJS		= ${SRCS:.c=.o}
-HEADER		= ./src/pipex.h
+SRCS			= $(wildcard src/*.c)
+SRCS_BONUS		= $(wildcard src_bonus/*.c)
+OBJS			= ${SRCS:src/%.c=objs/%.o}
+OBJS_BONUS		= ${SRCS_BONUS:src_bonus/%.c=objs_bonus/%.o}
+HEADER			= src/pipex.h
+HEADER_BONUS	= src_bonus/pipex_bonus.h
+OBJS_DIR		= objs/
+OBJS_DIR_BONUS	= objs_bonus/
 
-RM			= rm -f
-CC			= gcc
-FLAGS		= -Wall -Wextra -Werror
+RM				= rm -fr
+CC				= gcc
+FLAGS			= -Wall -Wextra -Werror
 
-LIBFT		= ./libraries/libft/libft.a
+LIBFT			= ./libraries/libft/libft.a
 
-LEAKS 		= valgrind
-LEAKS_FILE	= valgrind-out.txt
-LF 			= --leak-check=full \
+LEAKS 			= valgrind
+LEAKS_FILE		= valgrind-out.txt
+LF 				= --leak-check=full \
         		--show-leak-kinds=all \
         		--track-origins=yes \
         		--verbose \
@@ -35,34 +38,44 @@ LF 			= --leak-check=full \
 
 all: $(NAME)
 
-.objs/%.o:
-		$(CC) $(FLAGS) -c $< -o $@
+$(NAME): $(OBJS_DIR) $(OBJS) $(LIBFT)
+			$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBFT)
 
-$(OBJSDIR):
-		mkdir -p $(OBJSDIR)
-		
+$(OBJS_DIR):
+			mkdir $(OBJS_DIR)
+
+objs/%.o: src/%.c
+			${CC} ${FLAGS} -c $< -o ${<:src/%.c=objs/%.o}
+
 $(LIBFT):
-		make -C ./libraries/libft
+			make -C ./libraries/libft
 
-$(NAME): $(OBJSDIR) $(OBJS) $(LIBFT)
-		$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBFT) -I./srcs
+bonus: $(OBJS_DIR_BONUS) $(OBJS_BONUS) $(LIBFT)
+			$(CC) $(FLAGS) -o $(NAME) $(OBJS_BONUS) $(LIBFT)
+	
+$(OBJS_DIR_BONUS):
+			mkdir $(OBJS_DIR_BONUS)
+
+objs_bonus/%.o: src_bonus/%.c
+			${CC} ${FLAGS} -c $< -o ${<:src_bonus/%.c=objs_bonus/%.o}
 
 norm:
-	norminette ${SRCS} ${HEADER}
+			norminette ${SRCS} ${HEADER}
 
 leaks: 
-	$(LEAKS) $(LF)
+			$(LEAKS) $(LF)
 
 clean:
-		make -C ./libraries/libft clean
-		$(RM) $(OBJS)
+			make -C ./libraries/libft clean
+			$(RM) $(OBJS_DIR)
+			$(RM) $(OBJS_DIR_BONUS)
 
 fclean:	clean
-		make -C ./libraries/libft fclean
-		$(RM) $(NAME)
+			make -C ./libraries/libft fclean
+			$(RM) $(NAME)
 
 re:			fclean all
 
-#rebonus:	fclean bonus
+rebonus:	fclean bonus
 
-.PHONY:		all clean fclean re #rebonus bonus
+.PHONY:		all clean fclean re bonus rebonus

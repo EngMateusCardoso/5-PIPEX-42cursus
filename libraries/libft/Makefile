@@ -6,7 +6,7 @@
 #    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:11:00 by matcardo          #+#    #+#              #
-#    Updated: 2022/07/10 02:13:29 by matcardo         ###   ########.fr        #
+#    Updated: 2022/07/17 00:47:20 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ LIB			= ar -rcs
 
 CC			= gcc
 FLAGS		= -Wall -Werror -Wextra
+
 .c.o:
 			${CC} ${FLAGS} -c $< -o ${<:.c=.o}
 
