@@ -6,7 +6,7 @@
 #    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2022/07/17 02:04:42 by matcardo         ###   ########.fr        #
+#    Updated: 2022/07/17 19:04:26 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ $(LIBFT):
 			make -C ./libraries/libft
 
 bonus: $(OBJS_DIR_BONUS) $(OBJS_BONUS) $(LIBFT)
+			$(RM) $(NAME)
 			$(CC) $(FLAGS) -o $(NAME) $(OBJS_BONUS) $(LIBFT)
 	
 $(OBJS_DIR_BONUS):
