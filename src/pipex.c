@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 05:03:53 by matcardo          #+#    #+#             */
-/*   Updated: 2022/08/07 19:09:12 by matcardo         ###   ########.fr       */
+/*   Updated: 2022/08/07 20:47:44 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@ int	main()
 	if (id == 0)
 	{
 		//child process
-		int err = execlp("lgs", "ls", "-l", NULL);
+		int file = open("pingResults.txt", O_WRONLY | O_CREAT, 0777);
+		if (file == -1)
+			printf("Could open the file!\n");
+		dup2(file, STDOUT_FILENO);
+		close(file);
+		char* arr[] = {"ls", "-l", "-a", NULL};
+		int err = execvp("ls", arr);
 		if (err == -1)
 			printf("Could not find the program to execute!\n");
 	}
