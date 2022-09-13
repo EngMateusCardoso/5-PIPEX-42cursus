@@ -6,12 +6,12 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 05:03:50 by matcardo          #+#    #+#             */
-/*   Updated: 2022/07/26 22:15:16 by matcardo         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:40:14 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX
-# define PIPEX
+#ifndef PIPEX_H
+# define PIPEX_H
 
 # include "../libraries/libft/libft.h"
 // for malloc, free and exit.
@@ -21,10 +21,12 @@
 // for open.
 # include <fcntl.h>
 // for perror and strerror.
-#include <stdio.h>
+# include <stdio.h>
+# include <errno.h>
 // for wait and waitpid.
-#include <sys/wait.h>
+# include <sys/wait.h>
 
-void fct();
+void	exec_commands(char *argv[], char *envp[]);
+void	handle_error(const char *str, int error, int n_exit);
 
 #endif
