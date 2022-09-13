@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:27:28 by matcardo          #+#    #+#             */
-/*   Updated: 2022/09/13 14:41:08 by matcardo         ###   ########.fr       */
+/*   Updated: 2022/09/13 17:48:35 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,20 @@ void	exec_command(char *cmd_str, char *envp[])
 	paths = get_paths(envp);
 	cmd_array = ft_split(cmd_str, ' ');
 	cmd_path = get_command_path(cmd_array[0], paths);
+	i = 0;
+	while (paths[i])
+		free(paths[i++]);
+	free(paths);
 	if (!cmd_path)
 	{
-		i = 0;
-		while (paths[i])
-			free(paths[i++]);
-		free(paths);
 		i = 0;
 		while (cmd_array[i])
 			free(cmd_array[i++]);
 		free(cmd_array);
-		handle_error(cmd_str, ENOENT, 127);
+		cmd_str = ft_strjoin(cmd_str, ": command not found\n");
+		write(2, cmd_str, ft_strlen(cmd_str));
+		free(cmd_str);
+		exit(127);
 	}
 	execve(cmd_path, cmd_array, envp);
 }
