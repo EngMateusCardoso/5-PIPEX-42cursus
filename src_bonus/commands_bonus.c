@@ -6,13 +6,13 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:27:28 by matcardo          #+#    #+#             */
-/*   Updated: 2022/09/14 16:06:06 by matcardo         ###   ########.fr       */
+/*   Updated: 2022/09/14 16:18:05 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-int	write_outfile(void)
+void	write_outfile(int file_fd)
 {
 	char	*str;
 
@@ -23,7 +23,7 @@ int	write_outfile(void)
 		free(str);
 		str = get_next_line(STDIN_FILENO);
 	}
-	return (0);
+	close(file_fd);
 }
 
 char	*create_str_error(char *cmd_name)
@@ -110,6 +110,5 @@ void	exec_commands(int argc, char *argv[], char *envp[])
 	if (file_fd < 0)
 		handle_error(argv[argc - 1], EXIT_FAILURE);
 	dup2(file_fd, STDOUT_FILENO);
-	write_outfile();
-	close(file_fd);
+	write_outfile(file_fd);
 }

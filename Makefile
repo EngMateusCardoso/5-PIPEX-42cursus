@@ -6,7 +6,7 @@
 #    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2022/07/17 19:04:26 by matcardo         ###   ########.fr        #
+#    Updated: 2022/09/14 16:16:11 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,15 +27,6 @@ FLAGS			= -Wall -Wextra -Werror
 
 LIBFT			= ./libraries/libft/libft.a
 
-LEAKS 			= valgrind
-LEAKS_FILE		= valgrind-out.txt
-LF 				= --leak-check=full \
-        		--show-leak-kinds=all \
-        		--track-origins=yes \
-        		--verbose \
-        		--log-file=$(LEAKS_FILE) \
-        		./pipex
-
 all: $(NAME)
 
 $(NAME): $(OBJS_DIR) $(OBJS) $(LIBFT)
@@ -53,7 +44,7 @@ $(LIBFT):
 bonus: $(OBJS_DIR_BONUS) $(OBJS_BONUS) $(LIBFT)
 			$(RM) $(NAME)
 			$(CC) $(FLAGS) -o $(NAME) $(OBJS_BONUS) $(LIBFT)
-	
+
 $(OBJS_DIR_BONUS):
 			mkdir $(OBJS_DIR_BONUS)
 
@@ -61,10 +52,7 @@ objs_bonus/%.o: src_bonus/%.c
 			${CC} ${FLAGS} -c $< -o ${<:src_bonus/%.c=objs_bonus/%.o}
 
 norm:
-			norminette ${SRCS} ${HEADER}
-
-leaks: 
-			$(LEAKS) $(LF)
+			norminette ${SRCS} ${HEADER} ${SRCS_BONUS} ${HEADER_BONUS} 
 
 clean:
 			make -C ./libraries/libft clean
